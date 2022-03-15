@@ -6,9 +6,12 @@ class PostsController < ApplicationController
   end
 
   def create
+    if @current_user
     @post = Post.new(params["post"])
     @post.save
+    else
     redirect_to "/places/#{@post.place.id}"
+    flash[:notice] = "Login first."
+    end
   end
-
 end
